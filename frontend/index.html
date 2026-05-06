@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DocChat AI</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        #chat { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: scroll; }
+        input { width: 80%; padding: 10px; }
+        button { padding: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>📄 DocChat AI</h2>
+
+<div id="chat"></div>
+
+<input id="question" placeholder="Ask something..." />
+<button onclick="ask()">Send</button>
+
+<script>
+async function ask() {
+    let q = document.getElementById("question").value;
+
+    let res = await fetch(`http://127.0.0.1:8000/ask?q=${q}`);
+    let data = await res.json();
+
+    let chat = document.getElementById("chat");
+
+    chat.innerHTML += `<p><b>You:</b> ${q}</p>`;
+    chat.innerHTML += `<p><b>AI:</b> ${data.answer}</p><hr>`;
+}
+</script>
+
+</body>
+</html>
